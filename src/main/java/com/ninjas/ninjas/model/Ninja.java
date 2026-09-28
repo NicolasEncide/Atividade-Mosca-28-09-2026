@@ -1,0 +1,34 @@
+package com.ninjas.ninjas.model;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+import jakarta.persistence.*;
+import org.hibernate.validator.constraints.br.CPF;
+
+@Data
+@Entity
+@Table(name="ninja")
+@Valid
+public class Ninja {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_ninja;
+
+    @Column(name="nome_ninja", nullable = false)
+    @NotBlank(message = "Nome é obrigatório.")
+    @Size(max=50, message = "Nome deve ter entre 1 e 50 caracteres.")
+    private String nome;
+
+    @Column(name="cpf_ninja", nullable = false, unique = true)
+    @CPF
+    private String cpf;
+
+    @Column(name="email_ninja", nullable = false, unique = true)
+    @Email(message = "E-mail inválido (email@email.com)")
+    private String email;
+
+}
